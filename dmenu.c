@@ -513,6 +513,10 @@ insert:
 	}
 
 draw:
+	if (incremental) {
+		puts(text);
+		fflush(stdout);
+	}
 	drawmenu();
 }
 
@@ -721,7 +725,7 @@ static void
 usage(void)
 {
 	fputs("usage: dmenu [-bfinv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
-	      "             [-nb color] [-nf color] [-sb color] [-sf color] [-w windowid]\n", stderr);
+	      "             [-nb color] [-nf color] [-r] [-sb color] [-sf color] [-v]\n", stderr);
 	exit(1);
 }
 
@@ -742,6 +746,8 @@ main(int argc, char *argv[])
 			fast = 1;
 		else if (!strcmp(argv[i], "-c"))   /* centers dmenu on screen */
 			centered = 1;
+		else if (!strcmp(argv[i], "-r"))   /* incremental */
+			incremental = 1;
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
