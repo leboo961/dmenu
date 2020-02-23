@@ -131,8 +131,9 @@ drawitem(struct item *item, int x, int y, int w)
 		drw_setscheme(drw, scheme[SchemeOut]);
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
-
-	return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);
+        /* no vertical shift */
+	return drw_text(drw, 0, y, w, bh, lrpad / 2, item->text, 0);
+	/*return drw_text(drw, x, y, w, bh, lrpad / 2, item->text, 0);*/
 }
 
 static void
@@ -163,7 +164,8 @@ drawmenu(void)
 	if (lines > 0) {
 		/* draw vertical list */
 		for (item = curr; item != next; item = item->right)
-			drawitem(item, x, y += bh, mw - x);
+			drawitem(item, x, y += bh, mw );
+			/*drawitem(item, x, y += bh, mw - x);*/
 	} else if (matches) {
 		/* draw horizontal list */
 		x += inputw;
